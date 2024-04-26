@@ -1,3 +1,7 @@
+* https://cloud.google.com/bigquery/docs/remote-functions
+* https://cloud.google.com/functions/docs/concepts/go-runtime
+
+```
 export FUNCTION_TARGET=AudioTranscribe
 
 curl -m 60 -X POST localhost:8080 \
@@ -13,3 +17,4 @@ curl -m 60 -X POST localhost:8080 \
     ["uri_n"]
   ]
   }'
+```
