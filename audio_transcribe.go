@@ -17,10 +17,10 @@ var config = &speechpb.RecognitionConfig{
 }
 
 func init() {
-	functions.HTTP("AudioTranscribe", audioTranscribe)
+	functions.HTTP("AudioTranscribe", AudioTranscribe)
 }
 
-func audioTranscribe(w http.ResponseWriter, r *http.Request) {
+func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 	bqReq := new(BigQueryRequest)
 	if err := json.NewDecoder(r.Body).Decode(bqReq); err != nil {
 		sendError(w, err, http.StatusBadRequest)

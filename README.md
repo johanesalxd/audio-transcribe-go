@@ -1,9 +1,21 @@
-* https://cloud.google.com/bigquery/docs/remote-functions
-* https://cloud.google.com/functions/docs/concepts/go-runtime
+Audio Transcribe Go
+-----------------------------
+Speech-to-text application written in Go (based on Function Framework) to be used primarily by BigQuery Remote Function.
 
+# How to run
+## Run locally:
 ```
-export FUNCTION_TARGET=AudioTranscribe
+go run cmd/main.go
+```
 
+## Run locally with Pack and Docker:
+```
+pack build --builder=gcr.io/buildpacks/builder audio-transcribe-go
+docker run -p8080:8080 audio-transcribe-go
+```
+
+## Test locally (accept BQ RF [request contract](https://cloud.google.com/bigquery/docs/remote-functions#input_format)):
+```
 curl -m 60 -X POST localhost:8080 \
 -H "Content-Type: application/json" \
 -d '{
@@ -12,9 +24,17 @@ curl -m 60 -X POST localhost:8080 \
   "sessionUser": "",
   "userDefinedContext": {},
   "calls": [
-    ["uri_1"],
-    ["uri_2"],
-    ["uri_n"]
+    ["gcs_audio_wav_8khz_uri_1"],
+    ["gcs_audio_wav_8khz_uri_2"],
+    ["gcs_audio_wav_8khz_uri_n"]
   ]
   }'
 ```
+
+## Run on Cloud Run:
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
+# Additional notes
+* https://cloud.google.com/bigquery/docs/remote-functions
+* https://cloud.google.com/functions/docs/concepts/go-runtime
+* https://cloud.google.com/docs/buildpacks/build-function
