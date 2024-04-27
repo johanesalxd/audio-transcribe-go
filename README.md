@@ -57,3 +57,5 @@ gcloud functions deploy audio-transcribe-go \
 * https://cloud.google.com/bigquery/docs/remote-functions
 * https://cloud.google.com/functions/docs/concepts/go-runtime
 * https://cloud.google.com/docs/buildpacks/build-function
+* https://www.voiptroubleshooter.com/open_speech/american.html
+* https://www.cs.columbia.edu/~hgs/audio/harvard.html

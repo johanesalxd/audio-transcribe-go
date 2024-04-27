@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 
@@ -9,7 +10,7 @@ import (
 )
 
 func main() {
-	funcframework.RegisterHTTPFunction("/", atg.AudioTranscribe)
+	funcframework.RegisterHTTPFunctionContext(context.Background(), "/", atg.AudioTranscribe)
 
 	port := "8080"
 	if envPort := os.Getenv("PORT"); envPort != "" {
