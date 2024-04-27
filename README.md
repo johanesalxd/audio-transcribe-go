@@ -41,6 +41,18 @@ curl -m 60 -X POST localhost:8080 \
 ## Run on Cloud Run:
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
+## Run on Cloud Function:
+```
+gcloud functions deploy audio-transcribe-go \
+    --gen2 \
+    --runtime=go122 \
+    --region=us-central1 \
+    --source=. \
+    --entry-point=AudioTranscribe \
+    --trigger-http \
+    --allow-unauthenticated
+```
+
 # Additional notes
 * https://cloud.google.com/bigquery/docs/remote-functions
 * https://cloud.google.com/functions/docs/concepts/go-runtime

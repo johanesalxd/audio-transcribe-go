@@ -1,6 +1,6 @@
 module github.com/johanesalxd/audio-transcribe-go
 
-go 1.23
+go 1.22
 
 require (
 	cloud.google.com/go/speech v1.19.0
