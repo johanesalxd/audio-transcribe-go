@@ -7,19 +7,38 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"sync"
 
 	speech "cloud.google.com/go/speech/apiv1"
 	"cloud.google.com/go/speech/apiv1/speechpb"
 )
 
 func transcribes(ctx context.Context, client *speech.Client, bqReq *BigQueryRequest) *BigQueryResponse {
-	var transcripts []string
+	transcripts := make([]string, len(bqReq.Calls))
+	wait := new(sync.WaitGroup)
 
-	for _, call := range bqReq.Calls {
-		transcript := transcribe(ctx, client, fmt.Sprint(call[0]))
+	for i, call := range bqReq.Calls {
+		wait.Add(1)
 
-		transcripts = append(transcripts, transcript)
+		go func(j int) {
+			defer wait.Done()
+
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				default:
+					log.Printf("Goroutines #%v is started", j)
+
+					transcript := transcribe(ctx, client, fmt.Sprint(call[0]))
+					transcripts[j] = transcript
+
+					return
+				}
+			}
+		}(i)
 	}
+	wait.Wait()
 
 	bqResp := new(BigQueryResponse)
 	bqResp.Replies = transcripts
@@ -39,9 +58,9 @@ func transcribe(ctx context.Context, client *speech.Client, uri string) string {
 		Audio:  audio,
 	})
 	if err != nil {
-		log.Printf("Failed to recognize and skipped: %v", err)
-
-		transcript := Transcript{}
+		transcript := Transcript{
+			LogMessage: err.Error(),
+		}
 
 		return transcript.toJSONString()
 	}

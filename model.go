@@ -16,6 +16,7 @@ type BigQueryResponse struct {
 type Transcript struct {
 	Result     string  `json:"result"`
 	Confidence float32 `json:"confidence"`
+	LogMessage string  `json:"log_message"`
 }
 
 type tempTranscript struct {
