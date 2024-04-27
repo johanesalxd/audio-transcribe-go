@@ -1,14 +1,14 @@
 Audio Transcribe Go
 -----------------------------
-Speech-to-text application written in Go (based on Function Framework) to be used primarily by BigQuery Remote Function.
+Speech-to-text application written in Go (based on Function Framework) to be used primarily by BigQuery Remote Function (BQ RF).
 
 # How to run
-## Run locally:
+## Run locally
 ```
 go run cmd/main.go
 ```
 
-## Run locally with Pack and Docker:
+## Run locally with Pack and Docker
 ```
 pack build --builder=gcr.io/buildpacks/builder audio-transcribe-go
 
@@ -21,7 +21,8 @@ docker run -p8080:8080 \
 audio-transcribe-go
 ```
 
-## Test locally (accept BQ RF [request contract](https://cloud.google.com/bigquery/docs/remote-functions#input_format)):
+## Test locally (accept BQ RF [request contract](https://cloud.google.com/bigquery/docs/remote-functions#input_format))
+Upload this [sample audio](https://www.voiptroubleshooter.com/open_speech/american.html) (click [here](https://www.cs.columbia.edu/~hgs/audio/harvard.html) for more details) to your GCS bucket and run the local test.
 ```
 curl -m 60 -X POST localhost:8080 \
 -H "Content-Type: application/json" \
@@ -38,10 +39,7 @@ curl -m 60 -X POST localhost:8080 \
   }'
 ```
 
-## Run on Cloud Run:
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
-
-## Run on Cloud Function:
+## Run on Cloud Function
 ```
 gcloud functions deploy audio-transcribe-go \
     --gen2 \
@@ -53,9 +51,10 @@ gcloud functions deploy audio-transcribe-go \
     --allow-unauthenticated
 ```
 
+## Run on Cloud Run
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
 # Additional notes
 * https://cloud.google.com/bigquery/docs/remote-functions
 * https://cloud.google.com/functions/docs/concepts/go-runtime
 * https://cloud.google.com/docs/buildpacks/build-function
-* https://www.voiptroubleshooter.com/open_speech/american.html
-* https://www.cs.columbia.edu/~hgs/audio/harvard.html
