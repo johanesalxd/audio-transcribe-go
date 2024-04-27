@@ -11,7 +11,14 @@ go run cmd/main.go
 ## Run locally with Pack and Docker:
 ```
 pack build --builder=gcr.io/buildpacks/builder audio-transcribe-go
-docker run -p8080:8080 audio-transcribe-go
+
+gcloud auth application-default login
+
+ADC=~/.config/gcloud/application_default_credentials.json \
+docker run -p8080:8080 \
+-e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/secret.json \
+-v ${ADC}:/tmp/keys/secret.json \
+audio-transcribe-go
 ```
 
 ## Test locally (accept BQ RF [request contract](https://cloud.google.com/bigquery/docs/remote-functions#input_format)):
