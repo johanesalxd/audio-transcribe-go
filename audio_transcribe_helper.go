@@ -28,7 +28,7 @@ func transcribes(ctx context.Context, client *speech.Client, bqReq *BigQueryRequ
 				case <-ctx.Done():
 					return
 				default:
-					log.Printf("Goroutines #%v is started", j)
+					log.Printf("Running in Goroutines #%d", j)
 
 					transcript := transcribe(ctx, client, fmt.Sprint(call[0]))
 					transcripts[j] = transcript

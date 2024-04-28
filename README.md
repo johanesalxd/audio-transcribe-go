@@ -5,7 +5,7 @@ Speech-to-text application written in Go (based on Function Framework) to be use
 # How to run
 ## Run locally
 ```
-go run cmd/main.go
+FUNCTION_TARGET=AudioTranscribe go run cmd/main.go
 ```
 
 ## Run locally with Pack and Docker
@@ -43,6 +43,7 @@ curl -m 60 -X POST localhost:8080 \
 ```
 gcloud functions deploy audio-transcribe-go \
     --gen2 \
+    --concurrency=8 \
     --runtime=go122 \
     --region=us-central1 \
     --source=. \
