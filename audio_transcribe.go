@@ -3,6 +3,7 @@ package audiotranscribe
 import (
 	"context"
 	"encoding/json"
+	"log"
 	"net/http"
 
 	speech "cloud.google.com/go/speech/apiv1"
@@ -28,7 +29,12 @@ func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(r.Context())
+	defer func() {
+		log.Print("Cancellation function called.")
+		cancel()
+	}()
+
 	client, err := speech.NewClient(ctx)
 	if err != nil {
 		sendError(w, err, http.StatusInternalServerError)
