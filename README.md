@@ -14,7 +14,7 @@ pack build --builder=gcr.io/buildpacks/builder audio-transcribe-go
 
 gcloud auth application-default login
 
-ADC=~/.config/gcloud/application_default_credentials.json \
+ADC=~/.config/gcloud/application_default_credentials.json && \
 docker run -p8080:8080 \
 -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/secret.json \
 -v ${ADC}:/tmp/keys/secret.json \
