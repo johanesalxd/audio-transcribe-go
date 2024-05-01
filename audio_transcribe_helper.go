@@ -2,10 +2,8 @@ package audiotranscribe
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 	"strings"
 	"sync"
 
@@ -81,35 +79,4 @@ func transcribe(ctx context.Context, client *speech.Client, uri string) string {
 	}
 
 	return transcript.toJSONString()
-}
-
-func sendError(w http.ResponseWriter, err error, code int) {
-	bqResp := new(BigQueryResponse)
-	bqResp.ErrorMessage = fmt.Sprintf("Got error with details: %v", err)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-	json.NewEncoder(w).Encode(bqResp)
-}
-
-func sendSuccess(w http.ResponseWriter, bqResp *BigQueryResponse) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(bqResp)
-}
-
-func (t *Transcript) toJSONString() string {
-	jsonTranscript, _ := json.Marshal(t)
-
-	return string(jsonTranscript)
-}
-
-func (t *tempTranscript) avgConfidence() float32 {
-	var sum float32
-
-	for i := range t.confidence {
-		sum += t.confidence[i]
-	}
-
-	return sum / float32(len(t.confidence))
 }
