@@ -56,6 +56,9 @@ gcloud functions deploy audio-transcribe-go \
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
 # Additional notes
+* Unit test created by leveraging Gemini
+  
+## Related links
 * https://cloud.google.com/bigquery/docs/remote-functions
 * https://cloud.google.com/functions/docs/concepts/go-runtime
 * https://cloud.google.com/docs/buildpacks/build-function

@@ -24,7 +24,7 @@ func init() {
 func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 	bqReq := new(BigQueryRequest)
 	if err := json.NewDecoder(r.Body).Decode(bqReq); err != nil {
-		sendError(w, err, http.StatusBadRequest)
+		SendError(w, err, http.StatusBadRequest)
 
 		return
 	}
@@ -37,11 +37,11 @@ func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	client, err := speech.NewClient(ctx)
 	if err != nil {
-		sendError(w, err, http.StatusInternalServerError)
+		SendError(w, err, http.StatusInternalServerError)
 
 		return
 	}
 
 	bqResp := transcribes(ctx, client, bqReq)
-	sendSuccess(w, bqResp)
+	SendSuccess(w, bqResp)
 }
