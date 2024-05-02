@@ -8,17 +8,12 @@ import (
 
 	speech "cloud.google.com/go/speech/apiv1"
 	"cloud.google.com/go/speech/apiv1/speechpb"
-	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 )
 
 var config = &speechpb.RecognitionConfig{
 	Encoding:        speechpb.RecognitionConfig_LINEAR16,
 	SampleRateHertz: 8000,
 	LanguageCode:    "en-US",
-}
-
-func init() {
-	functions.HTTP("AudioTranscribe", AudioTranscribe)
 }
 
 func AudioTranscribe(w http.ResponseWriter, r *http.Request) {

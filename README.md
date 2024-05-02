@@ -2,6 +2,10 @@ Audio Transcribe Go
 -----------------------------
 Speech-to-text application written in Go (based on Function Framework) to be used primarily by BigQuery Remote Function (BQ RF).
 
+# Project structures
+* **audio_transcribe\*.go** are the **main/logic functions**.
+* **server\*.go** and others are the **generic functions** (boilerplate).
+
 # How to run
 ## Run locally
 ```
@@ -56,7 +60,7 @@ gcloud functions deploy audio-transcribe-go \
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
 # Additional notes
-* Unit test created by leveraging Gemini
+* Unit test created by leveraging Gemini.
   
 ## Related links
 * https://cloud.google.com/bigquery/docs/remote-functions

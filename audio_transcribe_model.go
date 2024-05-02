@@ -2,6 +2,17 @@ package audiotranscribe
 
 import "encoding/json"
 
+type Transcript struct {
+	Result     string  `json:"result"`
+	Confidence float32 `json:"confidence"`
+	LogMessage string  `json:"log_message"`
+}
+
+type TempTranscript struct {
+	Result     []string
+	Confidence []float32
+}
+
 func (t *Transcript) ToJSONString() string {
 	jsonTranscript, _ := json.Marshal(t)
 
