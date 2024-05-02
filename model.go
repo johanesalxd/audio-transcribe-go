@@ -19,7 +19,7 @@ type Transcript struct {
 	LogMessage string  `json:"log_message"`
 }
 
-type tempTranscript struct {
-	result     []string
-	confidence []float32
+type TempTranscript struct {
+	Result     []string
+	Confidence []float32
 }

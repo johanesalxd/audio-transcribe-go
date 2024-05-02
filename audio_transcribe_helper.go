@@ -62,20 +62,20 @@ func transcribe(ctx context.Context, client *speech.Client, uri string) string {
 			LogMessage: err.Error(),
 		}
 
-		return transcript.toJSONString()
+		return transcript.ToJSONString()
 	}
 
-	var temp tempTranscript
+	var temp TempTranscript
 
 	for _, result := range resp.Results {
-		temp.result = append(temp.result, result.Alternatives[0].Transcript)
-		temp.confidence = append(temp.confidence, result.Alternatives[0].Confidence)
+		temp.Result = append(temp.Result, result.Alternatives[0].Transcript)
+		temp.Confidence = append(temp.Confidence, result.Alternatives[0].Confidence)
 	}
 
 	transcript := Transcript{
-		Result:     strings.Join(temp.result, ""),
-		Confidence: temp.avgConfidence(),
+		Result:     strings.Join(temp.Result, ""),
+		Confidence: temp.AvgConfidence(),
 	}
 
-	return transcript.toJSONString()
+	return transcript.ToJSONString()
 }

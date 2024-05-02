@@ -2,18 +2,22 @@ package audiotranscribe
 
 import "encoding/json"
 
-func (t *Transcript) toJSONString() string {
+func (t *Transcript) ToJSONString() string {
 	jsonTranscript, _ := json.Marshal(t)
 
 	return string(jsonTranscript)
 }
 
-func (t *tempTranscript) avgConfidence() float32 {
+func (t *TempTranscript) AvgConfidence() float32 {
 	var sum float32
 
-	for i := range t.confidence {
-		sum += t.confidence[i]
+	if len(t.Confidence) == 0 {
+		return float32(0)
 	}
 
-	return sum / float32(len(t.confidence))
+	for i := range t.Confidence {
+		sum += t.Confidence[i]
+	}
+
+	return sum / float32(len(t.Confidence))
 }
