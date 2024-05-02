@@ -18,26 +18,25 @@ func transcribes(ctx context.Context, client *speech.Client, bqReq *BigQueryRequ
 	for i, call := range bqReq.Calls {
 		wait.Add(1)
 
-		url := call[0]
-		go func(j int) {
+		go func(j int, url string) {
 			defer wait.Done()
 
 			for {
 				select {
 				case <-ctx.Done():
-					log.Printf("Got Cancellation signal in Goroutines #%d", j)
+					log.Printf("Got cancellation signal in Goroutine #%d", j)
 
 					return
 				default:
-					log.Printf("Running in Goroutines #%d for URL: %+v", j, url)
+					log.Printf("Running in Goroutine #%d for URL: %v", j, url)
 
-					transcript := transcribe(ctx, client, fmt.Sprint(url))
+					transcript := transcribe(ctx, client, url)
 					transcripts[j] = transcript
 
 					return
 				}
 			}
-		}(i)
+		}(i, fmt.Sprint(call[0]))
 	}
 	wait.Wait()
 

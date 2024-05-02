@@ -31,7 +31,7 @@ func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	ctx, cancel := context.WithCancel(r.Context())
 	defer func() {
-		log.Print("Cancellation function called.")
+		log.Print("Done, Goroutines closed")
 		cancel()
 	}()
 
