@@ -28,19 +28,7 @@ audio-transcribe-go
 ## Test locally (accept BQ RF [request contract](https://cloud.google.com/bigquery/docs/remote-functions#input_format))
 Upload this [sample audio](https://www.voiptroubleshooter.com/open_speech/american.html) (click [here](https://www.cs.columbia.edu/~hgs/audio/harvard.html) for more details) to your GCS bucket and run the local test.
 ```
-curl -m 60 -X POST localhost:8080 \
--H "Content-Type: application/json" \
--d '{
-  "requestId": "",
-  "caller": "",
-  "sessionUser": "",
-  "userDefinedContext": {},
-  "calls": [
-    ["gcs_audio_wav_8khz_uri_1"],
-    ["gcs_audio_wav_8khz_uri_2"],
-    ["gcs_audio_wav_8khz_uri_n"]
-  ]
-  }'
+Please see examples.http for more details. You can also execute it directly with something like REST Client in VS Code (ext install humao.rest-client).
 ```
 
 ## Run on Cloud Function

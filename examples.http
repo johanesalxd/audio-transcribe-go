@@ -1,0 +1,34 @@
+POST http://localhost:8080 HTTP/1.1
+content-type: application/json
+
+{
+  "requestId": "",
+  "caller": "",
+  "sessionUser": "",
+  "userDefinedContext": {},
+  "calls": [
+    ["gcs_audio_wav_8khz_uri_1"],
+    ["gcs_audio_wav_8khz_uri_2"],
+    ["gcs_audio_wav_8khz_uri_3"],
+    ["gcs_audio_wav_8khz_uri_4"],
+    ["gcs_audio_wav_8khz_uri_5"]
+  ]
+}
+
+###
+
+curl -X POST http://localhost:8080 \
+-H "Content-Type: application/json" \
+-d '{
+  "requestId": "",
+  "caller": "",
+  "sessionUser": "",
+  "userDefinedContext": {},
+  "calls": [
+    ["gcs_audio_wav_8khz_uri_1"],
+    ["gcs_audio_wav_8khz_uri_2"],
+    ["gcs_audio_wav_8khz_uri_3"],
+    ["gcs_audio_wav_8khz_uri_4"],
+    ["gcs_audio_wav_8khz_uri_5"]
+  ]
+  }'
