@@ -19,7 +19,7 @@ var config = &speechpb.RecognitionConfig{
 func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 	bqReq := new(BigQueryRequest)
 	if err := json.NewDecoder(r.Body).Decode(bqReq); err != nil {
-		SendError(w, err, http.StatusBadRequest)
+		sendError(w, err, http.StatusBadRequest)
 
 		return
 	}
@@ -32,11 +32,11 @@ func AudioTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	client, err := speech.NewClient(ctx)
 	if err != nil {
-		SendError(w, err, http.StatusInternalServerError)
+		sendError(w, err, http.StatusInternalServerError)
 
 		return
 	}
 
 	bqResp := transcribes(ctx, client, bqReq)
-	SendSuccess(w, bqResp)
+	sendSuccess(w, bqResp)
 }

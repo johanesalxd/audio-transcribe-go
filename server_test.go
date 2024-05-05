@@ -1,4 +1,4 @@
-package audiotranscribe_test
+package audiotranscribe
 
 import (
 	"encoding/json"
@@ -7,8 +7,6 @@ import (
 	"net/http/httptest"
 	"reflect"
 	"testing"
-
-	audiotranscribe "github.com/johanesalxd/audio-transcribe-go"
 )
 
 func TestSendError(t *testing.T) {
@@ -34,7 +32,7 @@ func TestSendError(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			w := httptest.NewRecorder()
-			audiotranscribe.SendError(w, test.err, test.code)
+			sendError(w, test.err, test.code)
 
 			resp := w.Result()
 			if resp.StatusCode != test.code {
@@ -44,7 +42,7 @@ func TestSendError(t *testing.T) {
 				t.Errorf("SendError(%v, %v) = %v, want %v", test.err, test.code, resp.Header.Get("Content-Type"), "application/json")
 			}
 
-			var got audiotranscribe.BigQueryResponse
+			var got BigQueryResponse
 			if err := json.NewDecoder(resp.Body).Decode(&got); err != nil {
 				t.Errorf("SendError(%v, %v) = %v, want %v", test.err, test.code, err, test.want)
 			}
@@ -58,12 +56,12 @@ func TestSendError(t *testing.T) {
 func TestSendSuccess(t *testing.T) {
 	tests := []struct {
 		name string
-		resp *audiotranscribe.BigQueryResponse
+		resp *BigQueryResponse
 		want []string
 	}{
 		{
 			name: "success",
-			resp: &audiotranscribe.BigQueryResponse{
+			resp: &BigQueryResponse{
 				Replies: []string{"success"},
 			},
 			want: []string{"success"},
@@ -72,7 +70,7 @@ func TestSendSuccess(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			w := httptest.NewRecorder()
-			audiotranscribe.SendSuccess(w, test.resp)
+			sendSuccess(w, test.resp)
 
 			resp := w.Result()
 			if resp.StatusCode != http.StatusOK {
@@ -82,7 +80,7 @@ func TestSendSuccess(t *testing.T) {
 				t.Errorf("SendSuccess(%v) = %v, want %v", test.resp, resp.Header.Get("Content-Type"), "application/json")
 			}
 
-			var got audiotranscribe.BigQueryResponse
+			var got BigQueryResponse
 			if err := json.NewDecoder(resp.Body).Decode(&got); err != nil {
 				t.Errorf("SendSuccess(%v) = %v, want %v", test.resp, err, test.want)
 			}
