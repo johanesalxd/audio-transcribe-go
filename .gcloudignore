@@ -16,4 +16,6 @@
 *.toml
 *.md
 cmd/
+*_test.go
+*.http
 #!include:.gitignore
